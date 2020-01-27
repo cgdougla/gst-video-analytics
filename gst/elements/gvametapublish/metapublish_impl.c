@@ -161,7 +161,8 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
 
     MetapublishStatusMessage status;
     status.responseMessage = NULL;
-    status.responseCode = NULL;
+    status.codeType = GENERAL;
+    status.responseCode.fps = FILE_SUCCESS;
 
 #ifdef PAHO_INC
     if (mp->type == GST_GVA_METAPUBLISH_MQTT) {
@@ -218,7 +219,8 @@ MetapublishStatusMessage WriteMessage(GstGvaMetaPublish *gvametapublish, GstBuff
     MetapublishImpl *mp = &gvametapublish->instance_impl;
     MetapublishStatusMessage status;
     status.responseMessage = NULL;
-    status.responseCode = NULL;
+    status.codeType = GENERAL;
+    status.responseCode.fps = FILE_SUCCESS;
 
     MetapublishStatusMessage returnMessage;
     returnMessage.codeType = GENERAL;
