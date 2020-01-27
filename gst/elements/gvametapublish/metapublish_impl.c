@@ -160,6 +160,8 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
     }
 
     MetapublishStatusMessage status;
+    status.responseMessage = NULL;
+    status.responseCode = NULL;
 
 #ifdef PAHO_INC
     if (mp->type == GST_GVA_METAPUBLISH_MQTT) {
@@ -178,7 +180,7 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
         g_free(mp->file_config);
     }
 
-    switch (returnMessage.codeType) {
+    switch (status.codeType) {
     case MQTT:
         if (status.responseCode.mps != MQTT_SUCCESS) {
             returnMessage.responseCode.ps = ERROR;
@@ -195,10 +197,7 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
         }
         break;
     default:
-        status.codeType = GENERAL;
-        status.responseCode.ps = ERROR;
-        status.responseMessage = (gchar *)g_try_malloc(MAX_RESPONSE_MESSAGE);
-        snprintf(returnMessage.responseMessage, MAX_RESPONSE_MESSAGE, "Unexpected codeType\n");
+        returnMessage.responseCode.ps = ERROR;
         break;
     }
 
@@ -218,6 +217,8 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
 MetapublishStatusMessage WriteMessage(GstGvaMetaPublish *gvametapublish, GstBuffer *buf) {
     MetapublishImpl *mp = &gvametapublish->instance_impl;
     MetapublishStatusMessage status;
+    status.responseMessage = NULL;
+    status.responseCode = NULL;
 
     MetapublishStatusMessage returnMessage;
     returnMessage.codeType = GENERAL;
@@ -250,7 +251,7 @@ MetapublishStatusMessage WriteMessage(GstGvaMetaPublish *gvametapublish, GstBuff
         status = file_write(&mp->pFile, mp->file_config, buf);
     }
 
-    switch (returnMessage.codeType) {
+    switch (status.codeType) {
     case MQTT:
         if (status.responseCode.mps != MQTT_SUCCESS) {
             returnMessage.responseCode.ps = ERROR;
@@ -267,10 +268,7 @@ MetapublishStatusMessage WriteMessage(GstGvaMetaPublish *gvametapublish, GstBuff
         }
         break;
     default:
-        status.codeType = GENERAL;
-        status.responseCode.ps = ERROR;
-        status.responseMessage = (gchar *)g_try_malloc(MAX_RESPONSE_MESSAGE);
-        snprintf(returnMessage.responseMessage, MAX_RESPONSE_MESSAGE, "Unexpected codeType\n");
+        returnMessage.responseCode.ps = ERROR;
         break;
     }
 
