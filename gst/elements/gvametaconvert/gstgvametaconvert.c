@@ -223,7 +223,7 @@ static void gst_gva_meta_convert_cleanup(GstGvaMetaConvert *gvametaconvert) {
     g_free(gvametaconvert->source);
     g_free(gvametaconvert->tags);
     g_free(gvametaconvert->location);
-    g_free(gvametaconvert->info);
+    gst_video_info_free(gvametaconvert->info);
 }
 
 static void gst_gva_meta_convert_reset(GstGvaMetaConvert *gvametaconvert) {
