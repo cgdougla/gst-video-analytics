@@ -160,7 +160,6 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
     }
 
     MetapublishStatusMessage status;
-    status.responseMessage = NULL;
     status.codeType = GENERAL;
     status.responseCode.fps = FILE_SUCCESS;
 
@@ -218,7 +217,6 @@ MetapublishStatusMessage CloseConnection(GstGvaMetaPublish *gvametapublish) {
 MetapublishStatusMessage WriteMessage(GstGvaMetaPublish *gvametapublish, GstBuffer *buf) {
     MetapublishImpl *mp = &gvametapublish->instance_impl;
     MetapublishStatusMessage status;
-    status.responseMessage = NULL;
     status.codeType = GENERAL;
     status.responseCode.fps = FILE_SUCCESS;
 
