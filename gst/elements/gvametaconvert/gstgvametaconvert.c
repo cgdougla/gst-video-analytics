@@ -218,11 +218,13 @@ static void gst_gva_meta_convert_cleanup(GstGvaMetaConvert *gvametaconvert) {
 
     GST_DEBUG_OBJECT(gvametaconvert, "gst_gva_meta_convert_cleanup");
 
+    g_free(gvametaconvert->model);
     g_free(gvametaconvert->inference_id);
     g_free(gvametaconvert->layer_name);
     g_free(gvametaconvert->source);
     g_free(gvametaconvert->tags);
     g_free(gvametaconvert->location);
+     
     gst_video_info_free(gvametaconvert->info);
     gvametaconvert->info = NULL;
 }
@@ -295,6 +297,10 @@ void gst_gva_meta_convert_set_property(GObject *object, guint property_id, const
         gvametaconvert->method = g_value_get_enum(value);
         break;
     case PROP_SOURCE:
+		if(gvametaconvert->source)
+		{
+			g_free(gvametaconvert->source);
+		}
         gvametaconvert->source = g_value_dup_string(value);
         break;
     case PROP_TAGS:

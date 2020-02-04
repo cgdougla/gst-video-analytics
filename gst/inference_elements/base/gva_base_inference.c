@@ -306,6 +306,9 @@ void gva_base_inference_set_property(GObject *object, guint property_id, const G
         gva_base_inference_set_model(base_inference, g_value_get_string(value));
         break;
     case PROP_DEVICE:
+      if (base_inference->device) {
+	g_free(base_inference->device);
+      }
         base_inference->device = g_value_dup_string(value);
         break;
     case PROP_MODEL_PROC:

@@ -98,6 +98,10 @@ MetapublishStatusMessage OpenConnection(GstGvaMetaPublish *gvametapublish) {
             g_free(status.responseMessage);
             return returnMessage;
         }
+        else {
+            GST_INFO_OBJECT(gvametapublish, "%s", status.responseMessage);
+            g_free(status.responseMessage);
+        }
     }
 #endif
 
